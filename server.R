@@ -24,7 +24,7 @@ shinyServer(function(input, output, session) {
     tercenCtx(taskId=taskId, authToken=token)
     
     # for testing
-    # options("tercen.workflowId"= "a65c601243e295f3b2e2d15dc1070185")
+    # options("tercen.workflowId"= "a65c601243e295f3b2e2d15dc11d491a")
     # options("tercen.stepId"= "32-8")
     # tercenCtx()
   })
@@ -41,16 +41,21 @@ shinyServer(function(input, output, session) {
       mutate(.ri=seq(from=0, to=nrow(.)-1))
     
     # need some validation here
-    colnames(row.tbl) = c("PValue", "Count", "LogEnrich", "Term", ".ri" )
+    colnames(row.tbl) = c("PValue", "Category", "Count", "LogEnrich", "Term", ".ri" )
+     
+    updateSelectInput(session, "categories","Select Categories", choices = unique(row.tbl$Category))
+    req(input$categories)
+     
+    row.tbl = row.tbl %>% filter(Category %in% input$categories)
     
-    ctx %>% select(.ri, .y, .x , GenesSignificant) %>% 
-      group_by(.ri) %>%
-      summarise(log2FoldChange = list(.y), 
-                padj = list(.x), 
-                GenesSignificant = list(GenesSignificant)) %>%
-      inner_join(row.tbl, by=".ri") %>%
+    row.tbl %>%
+      inner_join(ctx %>% select(.ri, .y, .x , GenesSignificant) %>% 
+                   group_by(.ri) %>%
+                   summarise(log2FoldChange = list(.y), 
+                             padj = list(.x), 
+                             GenesSignificant = list(GenesSignificant)), by=".ri") %>%
       slice(1:input$nterms)
-  })
+   })
   
   plot.cellplot<-reactive({
     

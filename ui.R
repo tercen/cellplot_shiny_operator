@@ -6,6 +6,7 @@ shinyUI( fluidPage(
   ),
   sidebarLayout(
     sidebarPanel(
+      selectInput("categories","Select Categories", choices = NULL, multiple = TRUE, selected = NULL),
       sliderInput('nterms',  "Number of terms to plot", min = 1, max = 40, value = 40, step = 1),
       hr(),
       textInput("outfile", "Output file name", value="cellplots"),
