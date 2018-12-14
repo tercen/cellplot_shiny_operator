@@ -1,4 +1,3 @@
-.libPaths("/srv/shiny-server/cellplot/libs")
 library(shiny)
 # Define UI for application that draws a histogram
 shinyUI( fluidPage(

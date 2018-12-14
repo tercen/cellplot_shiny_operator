@@ -1,4 +1,3 @@
-# .libPaths("/srv/shiny-server/cellplot/libs")
 
 gitversion <- function(){ 
   return('no-version')
@@ -6,9 +5,9 @@ gitversion <- function(){
 
 library(tercen)
 library(dplyr)
-
 library(shiny)
 library(CellPlot)
+
 futile.logger::flog.threshold(futile.logger::ERROR, name = "cellplotLogger")
 
 # Define server logic required to draw a histogram
@@ -22,12 +21,12 @@ shinyServer(function(input, output, session) {
     taskId = query[["taskId"]]
     
     # create a Tercen context object using the taskId and token
-    tercenCtx(taskId=taskId, authToken=token)
+    # tercenCtx(taskId=taskId, authToken=token)
     
     # for testing
-    # options("tercen.workflowId"= "a65c601243e295f3b2e2d15dc1070185")
-    # options("tercen.stepId"= "32-8")
-    # tercenCtx()
+    options("tercen.workflowId"= "a65c601243e295f3b2e2d15dc1070185")
+    options("tercen.stepId"= "32-8")
+    tercenCtx()
   })
   
   getMode = reactive({
