@@ -1,0 +1,8 @@
+{
+  "name": "Cell Plot",
+  "description": "A typical usage scenario is plotting the enrichment of Gene Ontology terms, with individual cells reflecting the differential regulation of the constituent genes.",
+  "tags": ["basic statistics"],
+  "authors": ["tercen"],
+  "urls": ["https://github.com/tercen/cellplot_shiny_operator"]
+}
+
